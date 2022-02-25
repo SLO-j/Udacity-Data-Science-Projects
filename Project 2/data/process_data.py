@@ -30,6 +30,15 @@ def load_data(messages_filepath, categories_filepath):
     return pd.merge(messages, categories, left_index=True, right_index=True)
 
 def clean_data(df):
+    """
+    The function will make all column categories are binary values, and it will remove the duplicates in the dataframe
+    
+    Parameters the function takes:
+    df (dataframe): The dataset that contains the messages and categories
+    
+    Returns:
+    df (dataframe): The cleaned dataset
+    """
     # Data Cleaning by making related column binary values
     df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
 
@@ -38,6 +47,16 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    """
+    The function will saves the data in SQLite database
+    
+    Parameters the function takes:
+    df (dataframe): A cleaned dataset
+    database_filename (str): The name of the database file to be created - should end in .db.  
+    
+    Returns:
+    The database file with the above specified name
+    """
     # save dataset in SQlist file
     df.to_sql('disasterResponseDatabase',
      create_engine('sqlite:///{}'.format(database_filename)), if_exists='replace', index=False)  

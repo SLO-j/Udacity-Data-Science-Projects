@@ -65,6 +65,37 @@ def index():
             }
         }
     ]
+
+    tokens = []
+    all = []
+    vis1 = []
+    vis2 = []
+    vis3 = []
+    title1 ='DISTRIBUTION OF MESSAGE GENRES'
+    title2 = 'TOTAL NUMBER'
+    title3 = 'MOST FREQUENT WORDS'
+    x1 = dict(title = 'GENRE')
+    x2 = dict(title = 'TAG')
+    y = dict(title = 'COUNT')
+    y3 = dict(title = 'TOKEN')
+    lentgth = len(df['message'])
+
+    for i in range(lentgth):
+        tok = tokenize(df['message'][i])
+        tokens = tokens + tok
+    
+
+    bar1 = Bar(x = genre_names,y = genre_counts)
+    bar2 = Bar(x = list((df.iloc[:, 4:].sum().sort_values(ascending=False)).index),y = df.iloc[:, 4:].sum().sort_values(ascending=False))
+    bar3 = Bar(x = list(((pd.Series([token for token in tokens if (len(token)>2) and (token not in ['have', 'with', 'you', "n't", 'are', 'not','the', 'and', 'for', 'this'])])).value_counts().sort_values(ascending=False)[:20]).index),
+                    y = (pd.Series([token for token in tokens if (len(token)>2) and (token not in ['have', 'with', 'you', "n't", 'are', 'not','the', 'and', 'for', 'this'])])).value_counts().sort_values(ascending=False)[:20])
+    
+    vis1.append(bar1)
+    vis2.append(bar2)
+    vis3.append(bar3)
+    all.append(dict(data=vis1, layout = dict(title = title1,xaxis = x1,yaxis = y)))
+    all.append(dict(data=vis2, layout = dict(title = title2,xaxis = x2,yaxis = y)))
+    all.append(dict(data=vis3, layout = dict(title = title3,xaxis = y3,yaxis = y)))
     
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
