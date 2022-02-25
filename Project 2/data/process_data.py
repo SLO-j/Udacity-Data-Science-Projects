@@ -30,12 +30,17 @@ def load_data(messages_filepath, categories_filepath):
     return pd.merge(messages, categories, left_index=True, right_index=True)
 
 def clean_data(df):
+    # Data Cleaning by making related column binary values
+    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
+
+    # remove all duplicates in dataset and 
     return df.drop_duplicates()
 
 
 def save_data(df, database_filename):
+    # save dataset in SQlist file
     df.to_sql('disasterResponseDatabase',
-     create_engine('sqlite:///{}'.format(database_filename)), index=False)  
+     create_engine('sqlite:///{}'.format(database_filename)), if_exists='replace', index=False)  
 
 
 def main():

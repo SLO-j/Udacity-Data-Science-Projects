@@ -2,7 +2,7 @@
 
 ## Disaster Response Pipeline Project
 
-This project made to analyze disaster data from [appen](https://appen.com/) by building a model with an API that classifies disaster messages.
+This project made to analyze disaster data from [appen](https://appen.com/) by building a model with an API that classifies disaster messages. This will help for taggig messages and make it easy to control disaster.
 
 ### Project Components:
 
@@ -29,7 +29,7 @@ In a Python script, `train_classifier.py`, you will find data a machine learning
 - Load data from the SQLite database
 - Split the dataset into `training 80%` and `test 20%` sets
 - Build a text processing and machine learning pipeline
-- Train and tunes a model using `GridSearchCV`
+- Train and tunes a model using `GridSearchCV`\*//
 - Output results on the test set
 - Export the final model as a `pickle file`
 
